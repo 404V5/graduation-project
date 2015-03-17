@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="bdglxt"
+  id="myeclipse.1302252435625"
+  context-root="bdglxt"
+  j2ee-spec="5.0"
+  archive="bdglxt.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

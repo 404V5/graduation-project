@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans">
+
+	<!-- 配置sessionFactory -->
+
+
+
+	<bean
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		id="sessionFactory">
+
+
+
+		<property name="configLocation">
+
+			<value>classpath:hibernate.cfg.xml</value>
+
+		</property>
+
+	</bean>
+
+	<!-- 配置事务管理器 -->
+
+
+
+	<bean class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		id="transactionManager">
+
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+	<!-- 配置事务的传播特性 -->
+
+
+
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+
+
+		
+		<tx:attributes>
+
+			<tx:method name="insert*" propagation="REQUIRED" />
+
+			<tx:method name="delete*" propagation="REQUIRED" />
+
+			<tx:method name="update*" propagation="REQUIRED" />
+
+			<tx:method name="*" read-only="true" />
+
+		</tx:attributes>
+
+	</tx:advice>
+
+	<!-- 那些类的哪些方法参与事务 -->
+
+
+
+
+	<aop:config>
+
+		<aop:pointcut id="allManagerMethod" expression="execution(* bishe.dao.*.*(..))" />
+
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod" />
+
+	</aop:config>
+
+
+	
+	<bean class="bishe.action.ManageAction" id="manageAction" scope="prototype">
+
+
+
+		<property name="userDao">
+
+			<ref bean="userDao" />
+
+		</property>
+
+
+
+		<property name="bumenDao">
+
+			<ref bean="bumenDao" />
+
+		</property>
+
+
+
+		<property name="yuangongDao">
+
+			<ref bean="yuangongDao" />
+
+		</property>
+
+
+
+		<property name="hetongDao">
+
+			<ref bean="hetongDao" />
+
+		</property>
+
+
+
+		<property name="peixunDao">
+
+			<ref bean="peixunDao" />
+
+		</property>
+
+
+
+		<property name="zhiweiDao">
+
+			<ref bean="zhiweiDao" />
+
+		</property>
+
+
+
+		<property name="zhiweijiluDao">
+
+			<ref bean="zhiweijiluDao" />
+
+		</property>
+
+
+
+		<property name="kaoqinDao">
+
+			<ref bean="kaoqinDao" />
+
+		</property>
+
+
+
+		<property name="gongziDao">
+
+			<ref bean="gongziDao" />
+
+		</property>
+
+
+
+		<property name="baoxianfuliDao">
+
+			<ref bean="baoxianfuliDao" />
+
+		</property>
+
+	</bean>
+
+	<!-- daos -->
+
+
+
+
+	<bean class="bishe.dao.impl.UserDaoImpl" id="userDao">
+
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+
+
+	<bean class="bishe.dao.impl.BumenDaoImpl" id="bumenDao">
+
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+
+
+	<bean class="bishe.dao.impl.YuangongDaoImpl" id="yuangongDao">
+
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+
+	<bean class="bishe.dao.impl.HetongDaoImpl" id="hetongDao">
+
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+
+
+	<bean class="bishe.dao.impl.PeixunDaoImpl" id="peixunDao">
+
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+
+
+	<bean class="bishe.dao.impl.ZhiweiDaoImpl" id="zhiweiDao">
+
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+
+
+	<bean class="bishe.dao.impl.ZhiweijiluDaoImpl" id="zhiweijiluDao">
+
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+
+
+	<bean class="bishe.dao.impl.KaoqinDaoImpl" id="kaoqinDao">
+
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+
+
+	<bean class="bishe.dao.impl.GongziDaoImpl" id="gongziDao">
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+
+
+	<bean class="bishe.dao.impl.BaoxianfuliDaoImpl" id="baoxianfuliDao">
+
+
+
+		<property name="sessionFactory">
+
+			<ref bean="sessionFactory" />
+
+		</property>
+
+	</bean>
+
+</beans>
